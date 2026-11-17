@@ -23,7 +23,7 @@ The site has no build step. `.nojekyll` makes GitHub serve every file as is.
 - All timings were measured on one GPU shared with another training job.
 - F-scores are measured against the native-4K reconstruction at 1% of scene size, in the same camera frame.
 
-Venkatasai Eswar Nandu · Atul Tripathi · M Rajvardhan · Supervisor: Dr. Chalavadi Vishnu
+Venkatasai Eswar Nandu · Atul Tripathi · M Rajvardhan · Atri Sukul (CS25M206) · Supervisor: Dr. Chalavadi Vishnu
 
 ## Progressive showcase update — 17 November 2026
 

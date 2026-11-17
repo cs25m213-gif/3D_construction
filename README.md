@@ -24,3 +24,13 @@ The site has no build step. `.nojekyll` makes GitHub serve every file as is.
 - F-scores are measured against the native-4K reconstruction at 1% of scene size, in the same camera frame.
 
 Venkatasai Eswar Nandu · Atul Tripathi · M Rajvardhan · Supervisor: Dr. Chalavadi Vishnu
+
+## Progressive showcase update — 17 November 2026
+
+The landing page now contains the full project showcase and automatic progressive 3D loading. The previous landing page is preserved as `legacy-index.html`; `architecture/`, `viewer/` and `poster/` remain available. The revised poster linked by the new landing page is `assets/poster.pdf`, with a QR for this repository’s Pages address.
+
+The campus model loads in 16 spatial pieces with four simultaneous requests and a shared preview/full-resolution texture. All 682,950 original web-mesh triangles and texture coordinates were verified unchanged. In a local simulated 8 Mbps / 60 ms connection, the first piece appeared at 6.3 s and loading completed at 27.3 s; production timing will vary. Failed transfers retry only missing pieces. The complete payload remains about 25 MB.
+
+Expected URL after enabling Pages: https://cs25m213-gif.github.io/3D_construction/
+
+The primary showcase links `methods.html` for evaluation scopes. Historical comparison pages use their own protocols and are preserved separately.

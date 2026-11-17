@@ -38,3 +38,5 @@ The primary showcase links `methods.html` for evaluation scopes. Historical comp
 ## Architecture explanation and supplied walkthrough
 
 The main showcase and `assets/poster.pdf` now show separate ADD, SWAP and KEEP gain equations with candidate/occupant definitions. Blue identifies camera geometry, maroon the learned selector, amber depth estimation, green surface fusion and purple mesh output. The same legend appears in `walkthrough/`, imported from the supplied GeoStreamFusion Walkthrough ZIP. The main architecture section embeds this animation and links to its full-page view. The earlier `architecture/` animation remains available.
+
+SEVA Lab logo added to the poster and site header/footer. Source: https://sevalab-iitt.github.io/logo.png (matching the supplied logo).

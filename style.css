@@ -24,3 +24,5 @@
 
 /* Match utility equations to selector blocks 2–3 and the evaluation note to fusion block 5. */
 .action-equations,.action-equations code,.selector-equation-key{color:#800000}.selector-equation-key{font-size:13px;font-weight:650}.fusion-equation-key{color:#176c58}
+
+.seva-header{display:flex;align-items:center;margin-right:auto}.seva-header img{width:58px;height:58px;object-fit:contain}footer .seva-footer{width:85px;height:auto}@media(max-width:600px){.seva-header{margin-right:0;margin-left:auto}.seva-header img{width:48px;height:48px}}

@@ -246,12 +246,12 @@ const S=[
   if(p<.68){const E=proj(vc,PATH[cur].eye);if(E){ctx.strokeStyle=hex(C.wine,.2);ctx.lineWidth=1;for(let i=0;i<26;i++){const q=PTS[(Math.floor(T*40)+i*89)%PTS.length];if(q.k==='n')continue;const s=proj(vc,q.p);if(s){ctx.beginPath();ctx.moveTo(E[0],E[1]);ctx.lineTo(s[0],s[1]);ctx.stroke()}}}}
   heading(5,'Fuse depth from many views');badge(false);let x=60;x+=pill(`views fused: ${k}`,x,830,C.wine)+12;x+=pill('≥ 5 views agree',x,830,C.teal,seg(p,.4,.55))+12;pill('sky votes remove floating points',x,830,C.cut,no)}},
 {st:6,t:'Mesh & inspect',d:10,real:true,body:'The fused points become a triangle mesh, and the original 4K frames paint its texture. Left: the slow native-4K reference. Right: our combined run. Times were measured on the same shared GPU.',
- kv:[['4K reference','70.7 min dense · ≈90 min textured'],['Ours, 17 learned frames','8.3 min · 97% of surface'],['Ours, DA3 backbone','8.6 min · F 0.95'],['Ours, combined fast','53 min · F 0.978']],
+ kv:[['4K reference','70.7 min dense · ≈90 min textured'],['Ours, 17 learned frames','8.3 min · 97% of surface'],['Ours, DA3 backbone','8.6 min · F 0.95']],
  draw(p,T){heading(6,'Mesh, texture, inspect');badge(true);const w=700,h=w*630/1500,y=165,xl=110,xr=W-110-w,a=seg(p,.05,.3),b=seg(p,.15,.4);
   frame(IMG['fig_ref4k.jpg'],xl,y,w,h,{alpha:a});frame(IMG['fig_hybrid92.jpg'],xr,y,w,h,{alpha:b});text('native-4K MVS (reference)',xl,y-14,{size:18,color:C.muted,alpha:a});text('ours: combined frames + masked fusion',xr,y-14,{size:18,color:C.wine,weight:600,alpha:b});
-  const rows=[['Native-4K MVS, textured',90,'≈90 min','#9a9f9c'],['Native-4K MVS, dense only',70.7,'70.7 min','#9a9f9c'],['Ours, combined fast (F 0.978)',53.2,'53 min',C.teal],['Ours, DA3 depth (F 0.95)',8.6,'8.6 min',C.wine],['Ours, 17 learned frames',8.3,'8.3 min',C.wine]];
+  const rows=[['Native-4K MVS, textured',90,'≈90 min','#9a9f9c'],['Native-4K MVS, dense only',70.7,'70.7 min','#9a9f9c'],['Ours, DA3 depth (F 0.95)',8.6,'8.6 min',C.wine],['Ours, 17 learned frames',8.3,'8.3 min',C.wine]];
   const bx=540,by=y+h+64,bw=860;rows.forEach(([l,v,s,col],i)=>{const g=seg(p,.45+i*.07,.62+i*.07),yy=by+i*46;text(l,bx-20,yy+19,{size:18,align:'right',alpha:g?1:.35});ctx.fillStyle=col;ctx.fillRect(bx,yy,bw*v/90*out(g),26);text(s,bx+bw*v/90*out(g)+12,yy+20,{size:18,weight:600,alpha:g})});
-  text('minutes on one shared GPU',bx,by+5*46+18,{size:15,color:C.muted,alpha:seg(p,.8,.9)})}},
+  text('minutes on one shared GPU',bx,by+rows.length*46+18,{size:15,color:C.muted,alpha:seg(p,.8,.9)})}},
 ];
 
 const starts=[];let tot=0;for(const s of S){starts.push(tot);tot+=s.d}

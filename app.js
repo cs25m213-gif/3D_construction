@@ -6,3 +6,11 @@ let loading=false;async function loadModel(){if(loading)return;loading=true;cons
 
 document.querySelector('#load-model').onclick=loadModel;
 loadModel();
+
+// Fit the embedded walkthrough to its content; scrolling belongs to the page.
+const walkthroughFrame=document.querySelector('.walkthrough-frame');
+walkthroughFrame?.addEventListener('load',()=>{
+ const doc=walkthroughFrame.contentDocument;if(!doc)return;
+ const fit=()=>{const height=Math.ceil(doc.body.getBoundingClientRect().height);if(height>0)walkthroughFrame.style.height=height+'px';};
+ new ResizeObserver(fit).observe(doc.body);fit();
+});

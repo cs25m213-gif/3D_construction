@@ -19,3 +19,5 @@
 .action-equations b{font-size:13px;display:block}.action-equations code{display:block;font-size:clamp(10px,1.4vw,15px);white-space:normal;overflow-wrap:anywhere}
 .walkthrough-panel{margin-top:36px;padding-top:24px;border-top:1px solid var(--line)}.walkthrough-panel h3{font-size:25px}.walkthrough-panel .button{margin:16px 0}.walkthrough-frame{width:100%;height:790px;border:1px solid var(--line);border-radius:6px;background:var(--paper)}
 @media(max-width:600px){.walkthrough-frame{height:720px}}
+
+.walkthrough-frame{display:block;overflow:hidden;height:900px}

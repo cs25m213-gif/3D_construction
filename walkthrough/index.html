@@ -15,7 +15,14 @@
 :root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <meta charset="utf-8">
 <title>GeoStreamFusion Walkthrough</title>
-<meta name="claude:viewport-fit-sides" content="cover">
+<script>if(new URLSearchParams(location.search).has('embed'))document.documentElement.classList.add('embedded');</script>
+<style>
+html.embedded{overflow:hidden}
+html.embedded body{padding:16px}
+.embedded .wrap>.top,.embedded .wrap>h2,.embedded .wrap>.intro,.embedded .training{display:none}
+.embedded .wrap{gap:14px}
+.embedded .architecture-legend{margin:0}
+</style>
 <style>
 /* Layout: matches the GeoStreamFusion project site: paper ground, wine accent, teal for geometry,
    six stage chips above a single animated stage, then the stage description and the training signal. */
@@ -248,7 +255,7 @@ const S=[
 ];
 
 const starts=[];let tot=0;for(const s of S){starts.push(tot);tot+=s.d}
-let T=0,playing=!reduced,last=null,shown=-1;
+let T=0,playing=!reduced,last=null,shown=-1,inViewport=false;
 const flow=document.getElementById('flow');
 STAGES.forEach(([t,s],i)=>{const b=document.createElement('button');b.type='button';b.className='stage';b.dataset.role=['pose','selector','selector','depth','fusion','export'][i];b.innerHTML=`<i></i><b>0${i+1}</b><strong>${t}</strong><small>${s}</small>`;b.onclick=()=>go(S.findIndex(x=>x.st===i+1));flow.appendChild(b)});
 const sceneAt=t=>{for(let i=S.length-1;i>=0;i--)if(t>=starts[i])return i;return 0};
@@ -262,12 +269,15 @@ function draw(){const dpr=Math.min(2,devicePixelRatio||1),cw=cv.clientWidth||W;c
  const fd=Math.min(seg(T-starts[i],0,.35),seg(starts[i]+S[i].d-T,0,.35));if(fd<1){ctx.fillStyle=hex(C.bg,1-fd);ctx.fillRect(0,0,W,H)}
  panel(i);[...flow.children].forEach((b,j)=>{const ss=S.map((s,k)=>[s,k]).filter(([s])=>s.st===j+1),a=starts[ss[0][1]],e=starts[ss[ss.length-1][1]]+ss[ss.length-1][0].d;b.querySelector('i').style.width=clamp((T-a)/(e-a))*100+'%'});
  document.getElementById('time').textContent=`${fmt(T)} / ${fmt(tot)}`}
-function loop(ts){if(last!=null&&playing){T+=(ts-last)/1000;if(T>=tot)T=0}last=ts;draw();requestAnimationFrame(loop)}
+function loop(ts){if(last!=null&&playing&&inViewport&&!document.hidden){T+=(ts-last)/1000;if(T>=tot)T=0}last=ts;if(inViewport&&!document.hidden)draw();requestAnimationFrame(loop)}
 function go(i){i=(i+S.length)%S.length;T=starts[i]+(reduced&&!playing?S[i].d-.001:.36);draw()}
 const pb=document.getElementById('play'),setPlay=v=>{playing=v;pb.textContent=v?'Pause':'Play architecture →'};setPlay(playing);pb.onclick=()=>setPlay(!playing);
 document.getElementById('prev').onclick=()=>go(sceneAt(T)-1);document.getElementById('next').onclick=()=>go(sceneAt(T)+1);document.getElementById('restart').onclick=()=>{T=0;setPlay(true)};
 addEventListener('keydown',e=>{if(e.target.closest&&e.target.closest('button'))return;if(e.code==='Space'){e.preventDefault();setPlay(!playing)}else if(e.key==='ArrowRight')go(sceneAt(T)+1);else if(e.key==='ArrowLeft')go(sceneAt(T)-1)});
-T=reduced?S[0].d-.001:1.2;draw();requestAnimationFrame(loop);
+T=reduced?S[0].d-.001:0;draw();
+new IntersectionObserver(([entry])=>{inViewport=entry.isIntersecting&&entry.intersectionRatio>=.15;last=null;if(inViewport)draw();},{threshold:[0,.15]}).observe(document.querySelector('.screen'));
+document.addEventListener('visibilitychange',()=>{last=null});
+requestAnimationFrame(loop);
 </script>
 
 <p class="small">Timing scopes and evaluation protocols differ between these recorded runs. See <a href="../methods.html">methods and evidence</a> for the primary showcase protocol. Animated geometry is labelled schematic where applicable.</p></body></html>

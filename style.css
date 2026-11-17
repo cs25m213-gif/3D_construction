@@ -21,3 +21,6 @@
 @media(max-width:600px){.walkthrough-frame{height:720px}}
 
 .walkthrough-frame{display:block;overflow:hidden;height:900px}
+
+/* Match utility equations to selector blocks 2–3 and the evaluation note to fusion block 5. */
+.action-equations,.action-equations code,.selector-equation-key{color:#800000}.selector-equation-key{font-size:13px;font-weight:650}.fusion-equation-key{color:#176c58}

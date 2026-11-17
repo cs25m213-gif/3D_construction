@@ -12,7 +12,10 @@
 .action-equations b{font-size:13px;display:block}.action-equations code{display:block;font-size:clamp(10px,1.4vw,15px);white-space:normal;overflow-wrap:anywhere}
 .walkthrough-panel{margin-top:36px;padding-top:24px;border-top:1px solid var(--line)}.walkthrough-panel h3{font-size:25px}.walkthrough-panel .button{margin:16px 0}.walkthrough-frame{width:100%;height:790px;border:1px solid var(--line);border-radius:6px;background:var(--paper)}
 @media(max-width:600px){.walkthrough-frame{height:720px}}
-:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><style>
+/* Match utility equations to selector blocks 2–3 and the evaluation note to fusion block 5. */
+.action-equations,.action-equations code,.selector-equation-key{color:#800000}.selector-equation-key{font-size:13px;font-weight:650}.fusion-equation-key{color:#176c58}
+</style></head><body>
 <meta charset="utf-8">
 <title>GeoStreamFusion Walkthrough</title>
 <script>if(new URLSearchParams(location.search).has('embed'))document.documentElement.classList.add('embedded');</script>
@@ -78,7 +81,7 @@ canvas{display:block;width:100%;aspect-ratio:16/9;max-width:100%}
 </style>
 
 <div class="wrap">
-  <div class="top"><span class="eyebrow">01 / The system</span><span class="tag">Animated walkthrough · campus run, REC_0001</span></div>
+  <div class="top"><span class="eyebrow">SIH problem · 01 / The system</span><span class="tag">Animated walkthrough · campus run, REC_0001</span></div>
   <h2>A frame is useful when<br><em>it improves the reconstruction.</em></h2>
   <p class="intro">Follow one drone video through the six stages. Steps marked real use data from our run on the campus flight; the 3D sketches are schematic.</p>
   <div class="architecture-legend" aria-label="Architecture colour legend"><span class="role-pose">Camera geometry</span><span class="role-selector">Learned selector</span><span class="role-depth">Depth estimation</span><span class="role-fusion">Surface fusion</span><span class="role-export">Mesh output</span></div><div class="controls">
@@ -98,9 +101,9 @@ canvas{display:block;width:100%;aspect-ratio:16/9;max-width:100%}
   <div class="legend"><span><i style="background:var(--teal)"></i>geometry and cameras</span><span><i style="background:var(--wine)"></i>learned decisions</span><span><i style="background:var(--cut)"></i>removed</span></div>
   <div class="training">
     <div><span class="eyebrow">Training signal</span>
-      <div class="action-equations"><div><b>ADD candidate c</b><code>g_ADD(c | S) = F(S ∪ {c}) − F(S)</code></div><div><b>SWAP occupant o for c</b><code>g_SWAP(c, o | S) = F((S ∖ {o}) ∪ {c}) − F(S)</code></div><div><b>KEEP the current set</b><code>g_KEEP(S) = 0</code></div></div>
+      <p class="selector-equation-key">Maroon equations supervise the frame-utility and action blocks (2–3).</p><div class="action-equations"><div><b>ADD candidate c</b><code>g_ADD(c | S) = F(S ∪ {c}) − F(S)</code></div><div><b>SWAP occupant o for c</b><code>g_SWAP(c, o | S) = F((S ∖ {o}) ∪ {c}) − F(S)</code></div><div><b>KEEP the current set</b><code>g_KEEP(S) = 0</code></div></div>
       <p>Measure the surface-score change after adding a candidate or replacing an occupant, reconstructing both alternatives with the same depth model.</p>
-      <p class="small">S: retained frame set; c: candidate; o: replaced occupant. F: surface F-score; gains are measured using the same depth version and reference.</p></div>
+      <p class="small">S: retained frame set; c: candidate; o: replaced occupant. <span class="fusion-equation-key">F: surface F-score from fusion/checks (block 5).</span> Gains use the same depth version and reference.</p></div>
     <div><h3>What the selector is</h3><ul>
       <li><strong>Image encoder:</strong> ResNet18 → 384-d embedding, with an auxiliary image-degradation head.</li>
       <li><strong>Context:</strong> three tokens (map state, candidate, occupant) through a four-layer Transformer, width 256, 8 heads.</li>

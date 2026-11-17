@@ -5,3 +5,17 @@
 
 /* Keep retry controls above an already displayed partial model. */
 .viewer-overlay{z-index:3}
+
+.architecture-legend{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0 18px;font-size:12px;font-weight:650}
+.architecture-legend span{padding:5px 10px;border-left:5px solid var(--role);background:var(--tint)}
+.role-pose,[data-role="pose"]{--role:#225b9b;--tint:#eaf2fc}
+.role-selector,[data-role="selector"]{--role:#800000;--tint:#f9eaea}
+.role-depth,[data-role="depth"]{--role:#97500c;--tint:#fff2dd}
+.role-fusion,[data-role="fusion"]{--role:#176c58;--tint:#e5f5ef}
+.role-export,[data-role="export"]{--role:#674195;--tint:#f2ecfb}
+.stage[data-role]{background:var(--tint);border-top:5px solid var(--role);color:var(--role)}
+.stage[data-role] small{color:#3c4347}.stage[data-role].active{box-shadow:inset 0 0 0 2px var(--role);background:var(--tint);color:var(--role)}
+.action-equations{display:grid;gap:12px;margin:16px 0}.action-equations>div{border-left:3px solid #800000;padding:8px 12px;background:#f9eeee;min-width:0}
+.action-equations b{font-size:13px;display:block}.action-equations code{display:block;font-size:clamp(10px,1.4vw,15px);white-space:normal;overflow-wrap:anywhere}
+.walkthrough-panel{margin-top:36px;padding-top:24px;border-top:1px solid var(--line)}.walkthrough-panel h3{font-size:25px}.walkthrough-panel .button{margin:16px 0}.walkthrough-frame{width:100%;height:790px;border:1px solid var(--line);border-radius:6px;background:var(--paper)}
+@media(max-width:600px){.walkthrough-frame{height:720px}}
